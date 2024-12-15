@@ -1,6 +1,7 @@
 from textnode import *
 from htmlnode import *
 from split_nodes import *
+from markdown_func import *
 
 def text_node_to_html_node(text_node):
     match text_node.text_type:
@@ -22,7 +23,13 @@ def text_node_to_html_node(text_node):
 def main():
     print("hello world")
 
-    node = TextNode("This is text with a `code block` word", TextType.Normal_text)
-    new_nodes = split_nodes_delimiter([node], "`", TextType.Code_text)
+    node = TextNode(
+        "Multiple images ![first](1.png) between ![second](2.png) text",
+        TextType.Normal_text
+        )
+    new_nodes = split_nodes_image([node])
+
     print(new_nodes)
+
+# Examine `resulting_nodes` to ensure it contains the expected TextNode objects
 main()
