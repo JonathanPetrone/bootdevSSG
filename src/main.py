@@ -1,13 +1,18 @@
 from textnode import *
+from htmlnode import *
 
 def main():
     print("hello world")
 
-    testNode = TextNode("hej", TextType.Normal_text, "www.sf.se")
-    testNode2 = TextNode("hej", TextType.Normal_text, "www.sf.se")
-    testNode3 = TextNode("hej2", TextType.Bold_text)
+    node = ParentNode(
+        "p",
+        [
+            LeafNode("b", "Bold text", {"color": "blue"}),
+            LeafNode(None, "Normal text"),
+            LeafNode("i", "italic text"),
+            LeafNode(None, "Normal text"),
+        ], {"color": "red"}
+    )
 
-    print(testNode == testNode3)
-
-    print(testNode, testNode2, testNode3)
+    print(node.to_html())
 main()
