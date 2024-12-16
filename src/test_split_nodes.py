@@ -61,3 +61,30 @@ class Test_split_nodes_images_links(unittest.TestCase):
             TextNode("just plain text", TextType.Normal_text)
         ]
         self.assertEqual(new_nodes, expected)
+
+class Test_text_to_textnodes(unittest.TestCase):
+    def test_example_text_to_textnode(self):
+        text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        result = text_to_textnodes(text)
+        expected = [
+            TextNode("This is ", TextType.Normal_text),
+            TextNode("text", TextType.Bold_text),
+            TextNode(" with an ", TextType.Normal_text),
+            TextNode("italic", TextType.Italic_text),
+            TextNode(" word and a ", TextType.Normal_text),
+            TextNode("code block", TextType.Code_text),
+            TextNode(" and an ", TextType.Normal_text),
+            TextNode("obi wan image", TextType.Images, "https://i.imgur.com/fJRm4Vk.jpeg"),
+            TextNode(" and a ", TextType.Normal_text),
+            TextNode("link", TextType.Links, "https://boot.dev"),
+        ]
+
+        self.assertEqual(result, expected)
+
+    def test_empty_text_to_textnode(self):
+        text = ""
+        result = text_to_textnodes(text)
+        expected = []
+
+        self.assertEqual(result, expected)
+

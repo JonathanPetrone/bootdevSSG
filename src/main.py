@@ -23,13 +23,9 @@ def text_node_to_html_node(text_node):
 def main():
     print("hello world")
 
-    node = TextNode(
-        "Multiple images ![first](1.png) between ![second](2.png) text",
-        TextType.Normal_text
-        )
-    new_nodes = split_nodes_image([node])
-
-    print(new_nodes)
+    text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+    result = text_to_textnodes(text)
+    print(result)
 
 # Examine `resulting_nodes` to ensure it contains the expected TextNode objects
 main()
