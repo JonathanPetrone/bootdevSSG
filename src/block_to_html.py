@@ -13,9 +13,9 @@ def text_node_to_html_node(text_node):
         case TextType.Code_text:
             return HTMLNode("code", text_node.text)
         case TextType.Links:
-            return HTMLNode("a", text_node.text, {"href": text_node.url})
+            return HTMLNode("a", text_node.text, None, {"href": text_node.url})
         case TextType.Images:
-            return HTMLNode("img", "", {"src":text_node.url, "alt":text_node.text})
+            return HTMLNode("img", "", None, {"src":text_node.url, "alt":text_node.text})
         case _:
             raise Exception("Text node is not ok")
         

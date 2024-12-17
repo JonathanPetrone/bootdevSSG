@@ -91,3 +91,16 @@ def block_to_blocktype(block):
         return "ordered_list"
 
     return "paragraph"
+
+def extract_heading_content_from_md(heading):
+    first_space = heading.find(' ')
+    return heading[first_space:].strip()
+
+def extract_title(markdown):
+    lines = markdown.splitlines()
+    for line in lines:
+        line = line.strip()  # This will remove leading/trailing whitespace
+        if line.startswith("# "):
+            return extract_heading_content_from_md(line)
+    
+    raise Exception("no h1 header")

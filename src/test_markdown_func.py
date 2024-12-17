@@ -4,6 +4,7 @@ from main import *
 from htmlnode import *
 from textnode import TextNode, TextType
 from markdown_func import *
+from block_to_html import *
 
 class Test_extract_from_markdown(unittest.TestCase):
     def test_extract_from_image(self):
@@ -118,3 +119,14 @@ class Test_block_types(unittest.TestCase):
         expected = "paragraph"
         self.assertEqual(result, expected)
 
+class Test_extract_title(unittest.TestCase):
+    def test_extract_title(self):
+        md_str = "# Hello"
+        result = extract_title(md_str)
+        expected = "Hello"
+        self.assertEqual(result, expected)
+    def test_extract_title_longer(self):
+        md_str = "131231\n   # Hello"
+        result = extract_title(md_str)
+        expected = "Hello"
+        self.assertEqual(result, expected)

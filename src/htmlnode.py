@@ -6,15 +6,39 @@ class HTMLNode():
         self.props = props
 
     def to_html(self):
-        pass
+        if self.children:
+            for child in self.children:
+                if not isinstance(child, HTMLNode):
+                    print(f"Warning: child is not HTMLNode but {type(child)}: {child}")
+                    
+        value = "" if self.value is None else self.value
+        
+        if self.children == []:
+            if self.tag is None:
+                return value
+            
+            if self.props is not None:
+                return f"<{self.tag}{self.props_to_html()}>{value}</{self.tag}>"
+            return f"<{self.tag}>{value}</{self.tag}>"
+        else:
+            str_child = ""
+            for child in self.children:
+                str_child += child.to_html()
+            
+            if self.props is None:
+                return f"<{self.tag}>{str_child}</{self.tag}>"
+            return f"<{self.tag}{self.props_to_html()}>{str_child}</{self.tag}>"
+
     
     def props_to_html(self):
-        if self.props == None:
+        if not self.props:  # Handles None or empty dict
             return ""
-        props = self.props.copy()
-        str_props = " ".join([f'{key}="{value}"' for key, value in props.items()])
-
-        return str_props
+        
+        props_strings = []
+        for key, value in self.props.items():
+            props_strings.append(f'{key}="{value}"')
+        
+        return " " + " ".join(props_strings)
     
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
